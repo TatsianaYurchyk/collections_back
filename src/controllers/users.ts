@@ -3,6 +3,7 @@ import createHttpError from "http-errors";
 import UserModel from "../models/user";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
+import { assertIsDefined } from "../util/assertIsDefined";
 
 export const getAuthenticatedUser: RequestHandler = async (req, res, next) => {
     try {
@@ -91,7 +92,9 @@ export const logOut: RequestHandler = (req, res, next) => {
 };
 
 export const getUsers: RequestHandler = async (req, res, next) => {
+    // const authenticatedUserId = req.session.userId;
     try {
+        // assertIsDefined(authenticatedUserId);
         const users = await UserModel.find().exec();
         res.status(200).json(users);
     } catch (error) {
@@ -101,7 +104,9 @@ export const getUsers: RequestHandler = async (req, res, next) => {
 
 export const deleteUser: RequestHandler = async (req, res, next) => {
     const userId = req.params.userId;
+    // const authenticatedUserId = req.session.userId;
     try {
+        // assertIsDefined(authenticatedUserId);
         if (!mongoose.isValidObjectId(userId)){
             throw createHttpError(400,"Invalid user id");
         } 
@@ -129,8 +134,9 @@ interface UpdateUserBody {
 export const updateUser: RequestHandler<UpdateUserParams, unknown, UpdateUserBody, unknown> = async (req, res, next) => {
     const userId = req.params.userId;
     const newStatus = req.body.status;
-    // const newStatus = "blocked";
+    // const authenticatedUserId = req.session.userId;
     try {
+        // assertIsDefined(authenticatedUserId);
         if (!mongoose.isValidObjectId(userId)){
             throw createHttpError(400,"Invalid user id");
         }       
