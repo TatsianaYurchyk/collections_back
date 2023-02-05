@@ -9,7 +9,8 @@ router.post("/signup", UserController.signUp);
 router.post("/login",UserController.logIn);
 router.get("/get", UserController.getUsers);
 router.delete("/:userId",UserController.deleteUser);
-router.patch("/:userId", UserController.updateUser);
+router.patch("/:userId", UserController.updateUserStatus);
+router.patch("/togglerole/:userId", UserController.updateUserRole);
 router.post("/logout", UserController.logOut);
 
 export default router;

@@ -131,7 +131,7 @@ interface UpdateUserBody {
     status: string,
 }
 
-export const updateUser: RequestHandler<UpdateUserParams, unknown, UpdateUserBody, unknown> = async (req, res, next) => {
+export const updateUserStatus: RequestHandler<UpdateUserParams, unknown, UpdateUserBody, unknown> = async (req, res, next) => {
     const userId = req.params.userId;
     const newStatus = req.body.status;
     // const authenticatedUserId = req.session.userId;
@@ -151,3 +151,29 @@ export const updateUser: RequestHandler<UpdateUserParams, unknown, UpdateUserBod
         next(error);
     }
 };
+
+interface UpdateUserRoleBody {
+    role: string,
+}
+
+export const updateUserRole: RequestHandler<UpdateUserParams, unknown, UpdateUserRoleBody, unknown> = async (req, res, next) => {
+    const userId = req.params.userId;
+    const newRole = req.body.role;
+    // const authenticatedUserId = req.session.userId;
+    try {
+        // assertIsDefined(authenticatedUserId);
+        if (!mongoose.isValidObjectId(userId)){
+            throw createHttpError(400,"Invalid user id");
+        }       
+        const user = await UserModel.findById(userId).exec();
+        if (!user){
+            throw createHttpError(404,"The user is not found");
+        }   
+        user.role = newRole;
+        const updatedUser = await user.save();
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        next(error);
+    }
+};
+
