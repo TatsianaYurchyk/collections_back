@@ -58,6 +58,9 @@ interface LoginBody {
 export const logIn: RequestHandler<unknown,unknown,LoginBody,unknown> = async (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
+
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
+    
     try {
         if (!username || !password){
             throw createHttpError(404,"Some parametres for logIn missing");
