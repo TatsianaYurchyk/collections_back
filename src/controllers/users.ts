@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import { assertIsDefined } from "../util/assertIsDefined";
 
 export const getAuthenticatedUser: RequestHandler = async (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
     try {
         const user = await UserModel.findById(req.session.userId).select("+email").exec();
         res.status(200).json(user);
@@ -24,6 +25,8 @@ export const signUp: RequestHandler <unknown, unknown, SignUpBody, unknown> = as
     const username = req.body.username;
     const email = req.body.email;
     const passwordRaw = req.body.password;
+
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
     
     try {
         if (!username || !email || !passwordRaw) {
@@ -60,7 +63,7 @@ export const logIn: RequestHandler<unknown,unknown,LoginBody,unknown> = async (r
     const password = req.body.password;
 
     res.setHeader('Access-Control-Allow-Credentials', 'true')
-    
+
     try {
         if (!username || !password){
             throw createHttpError(404,"Some parametres for logIn missing");
@@ -85,6 +88,7 @@ export const logIn: RequestHandler<unknown,unknown,LoginBody,unknown> = async (r
 };
 
 export const logOut: RequestHandler = (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
     req.session.destroy(error => {
         if (error) {
             next(error);
@@ -95,6 +99,7 @@ export const logOut: RequestHandler = (req, res, next) => {
 };
 
 export const getUsers: RequestHandler = async (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
     // const authenticatedUserId = req.session.userId;
     try {
         // assertIsDefined(authenticatedUserId);
@@ -106,6 +111,7 @@ export const getUsers: RequestHandler = async (req, res, next) => {
 }
 
 export const deleteUser: RequestHandler = async (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
     const userId = req.params.userId;
     // const authenticatedUserId = req.session.userId;
     try {
@@ -135,6 +141,8 @@ interface UpdateUserBody {
 }
 
 export const updateUserStatus: RequestHandler<UpdateUserParams, unknown, UpdateUserBody, unknown> = async (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
+
     const userId = req.params.userId;
     const newStatus = req.body.status;
     // const authenticatedUserId = req.session.userId;
@@ -163,6 +171,9 @@ export const updateUserRole: RequestHandler<UpdateUserParams, unknown, UpdateUse
     const userId = req.params.userId;
     const newRole = req.body.role;
     // const authenticatedUserId = req.session.userId;
+
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
+
     try {
         // assertIsDefined(authenticatedUserId);
         if (!mongoose.isValidObjectId(userId)){
