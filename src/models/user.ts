@@ -6,6 +6,7 @@ const userSchema = new Schema ({
     password: {type: String, required: true},
     status: {type: String, default: "active"},
     role: {type: String, default: "user"},
+    field: [{ type: Schema.Types.ObjectId, ref: 'Story' }]
 },{ timestamps: true });
 
 type User = InferSchemaType<typeof userSchema>;
