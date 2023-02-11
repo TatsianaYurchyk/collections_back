@@ -4,9 +4,10 @@ const collectionSchema = new Schema({
     userId: { type: Schema.Types.ObjectId, required: true },
     name: { type: String, required: true },
     //topic: { type: String, required: true },
-    topic: { type: String, required: true, topic:["books", "films"]} ,
+    topic: { type: Schema.Types.ObjectId, ref: 'Topic' },
     description: { type: String, required: true },
-    fields: [{ type: Schema.Types.ObjectId, ref: 'Field' }]
+    fields: [{ type: Schema.Types.ObjectId, ref: 'Field' }],
+    items: [{ type: Schema.Types.ObjectId, ref: 'Item' }]
 }, { timestamps: true });
 
 type Collection = InferSchemaType<typeof collectionSchema>;

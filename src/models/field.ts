@@ -17,7 +17,6 @@ const fieldSchema = new Schema({
     text1: { type: String, },
     text2: { type: String, },
     text3: { type: String, },
-   
 }, { timestamps: true });
 
 type Field = InferSchemaType<typeof fieldSchema>;
