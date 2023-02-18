@@ -6,6 +6,7 @@ import { assertIsDefined } from "../util/assertIsDefined";
 
 export const getCollections: RequestHandler = async (req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', 'true')
+    res.setHeader('Access-Control-Expose-Headers', 'Set-Cookie')
     // res.setHeader('Access-control-expose-headers: Set-Cookie','true')
     const authenticatedUserId = req.session.userId;
 

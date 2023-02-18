@@ -15,7 +15,7 @@ const app = express();
 app.use(morgan("dev"));
 
 // app.use(cors());
-app.use(cors({credentials: true,  exposedHeaders: ["set-cookie"], origin: ['http://localhost:3000', 'https://collections-mern.onrender.com', 'http://localhost:8000']}))
+app.use(cors({credentials: true,  exposedHeaders: ["set-cookie"], origin: ['http://localhost:3000', 'https://collections-mern.onrender.com', 'http://localhost:8000'], methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']}))
 
 app.use(express.json());
 

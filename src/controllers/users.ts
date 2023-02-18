@@ -65,6 +65,7 @@ export const logIn: RequestHandler<unknown,unknown,LoginBody,unknown> = async (r
     const password = req.body.password;
 
     res.setHeader('Access-Control-Allow-Credentials', 'true')
+    res.setHeader('Access-Control-Expose-Headers', 'Set-Cookie')
 
     try {
         if (!username || !password){
