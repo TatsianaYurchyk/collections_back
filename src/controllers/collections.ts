@@ -18,11 +18,12 @@ export const getCollections: RequestHandler = async (req, res, next) => {
 };
 
 export const getCollection: RequestHandler = async (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
     const collectionId = req.params.collectionId;
     const authenticatedUserId = req.session.userId;
 
     try {
-        assertIsDefined(authenticatedUserId);
+        // assertIsDefined(authenticatedUserId);
 
         if (!mongoose.isValidObjectId(collectionId)) {
             throw createHttpError(400, "Invalid collection id");
@@ -34,9 +35,9 @@ export const getCollection: RequestHandler = async (req, res, next) => {
             throw createHttpError(404, "Collection not found");
         }
 
-        if (!collection.userId.equals(authenticatedUserId)) {
-            throw createHttpError(401, "You cannot access this collection");
-        }
+        // if (!collection.userId.equals(authenticatedUserId)) {
+        //     throw createHttpError(401, "You cannot access this collection");
+        // }
 
         res.status(200).json(collection);
     } catch (error) {

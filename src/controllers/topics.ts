@@ -11,10 +11,11 @@ import { assertIsDefined } from "../util/assertIsDefined";
 // const Topic5 = TopicModel.create({value:"Travelling",label:"Travelling"});       
 
 export const getTopics: RequestHandler = async (req, res, next) => {
-    const authenticatedUserId = req.session.userId;
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
+    // const authenticatedUserId = req.session.userId;
 
     try {
-        assertIsDefined(authenticatedUserId);
+        // assertIsDefined(authenticatedUserId);
         const topics = await TopicModel.find().exec();
         res.status(200).json(topics);
     } catch (error) {
