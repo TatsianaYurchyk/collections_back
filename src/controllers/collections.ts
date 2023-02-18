@@ -5,6 +5,7 @@ import CollectionModel from "../models/collection";
 import { assertIsDefined } from "../util/assertIsDefined";
 
 export const getCollections: RequestHandler = async (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
     const authenticatedUserId = req.session.userId;
 
     try {
@@ -60,7 +61,7 @@ export const createCollection: RequestHandler<unknown, unknown, CreateCollection
     const authenticatedUserId = req.session.userId;
 
     try {
-        assertIsDefined(authenticatedUserId);
+        // assertIsDefined(authenticatedUserId);
 
         if (!name) {
             throw createHttpError(400, "Collection must have a name");
