@@ -8,7 +8,7 @@ export const getCollections: RequestHandler = async (req, res, next) => {
     const authenticatedUserId = req.session.userId;
 
     try {
-        assertIsDefined(authenticatedUserId);
+        // assertIsDefined(authenticatedUserId);
 
         const collections = await CollectionModel.find({ userId: authenticatedUserId }).exec();
         res.status(200).json(collections);
