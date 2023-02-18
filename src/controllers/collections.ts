@@ -6,6 +6,7 @@ import { assertIsDefined } from "../util/assertIsDefined";
 
 export const getCollections: RequestHandler = async (req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', 'true')
+    // res.setHeader('Access-control-expose-headers: Set-Cookie','true')
     const authenticatedUserId = req.session.userId;
 
     try {
@@ -20,6 +21,7 @@ export const getCollections: RequestHandler = async (req, res, next) => {
 
 export const getCollection: RequestHandler = async (req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', 'true')
+    
     const collectionId = req.params.collectionId;
     const authenticatedUserId = req.session.userId;
 

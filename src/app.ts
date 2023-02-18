@@ -15,7 +15,7 @@ const app = express();
 app.use(morgan("dev"));
 
 // app.use(cors());
-app.use(cors({credentials: true, origin: ['http://localhost:3000', 'https://collections-mern.onrender.com', 'http://localhost:8000']}))
+app.use(cors({credentials: true,  exposedHeaders: ["set-cookie"], origin: ['http://localhost:3000', 'https://collections-mern.onrender.com', 'http://localhost:8000']}))
 
 app.use(express.json());
 
