@@ -48,10 +48,10 @@ interface CreateCollectionBody {
     name: string,
     topic: string,
     description: string,
-    fields: string,
+    fields: Array<string>,
 }
 
-export const createNote: RequestHandler<unknown, unknown, CreateCollectionBody, unknown> = async (req, res, next) => {
+export const createCollection: RequestHandler<unknown, unknown, CreateCollectionBody, unknown> = async (req, res, next) => {
     const name = req.body.name;
     const topic = req.body.topic;
     const description = req.body.description;
@@ -80,8 +80,10 @@ export const createNote: RequestHandler<unknown, unknown, CreateCollectionBody, 
         });
 
         res.status(201).json(newCollection);
+       
     } catch (error) {
         next(error);
+        
     }
 };
 
@@ -99,7 +101,7 @@ interface UpdateCollectionBody {
 export const updateNote: RequestHandler<UpdateCollectionParams, unknown, UpdateCollectionBody, unknown> = async (req, res, next) => {
     const collectionId = req.params.collectionId;
     const newName = req.body.name;
-    const newTopic = req.body.topic;
+    // const newTopic = req.body.topic;
     const newDescription = req.body.description;
     const authenticatedUserId = req.session.userId;
 
@@ -116,9 +118,9 @@ export const updateNote: RequestHandler<UpdateCollectionParams, unknown, UpdateC
         if (!newDescription) {
             throw createHttpError(400, "Collection must have a description");
         }
-        if (!newTopic) {
-            throw createHttpError(400, "Collection must have a topic");
-        }
+        // if (!newTopic) {
+        //     throw createHttpError(400, "Collection must have a topic");
+        // }
 
         const collection = await CollectionModel.findById(collectionId).exec();
 
@@ -131,7 +133,7 @@ export const updateNote: RequestHandler<UpdateCollectionParams, unknown, UpdateC
         }
 
         collection.name = newName;
-        collection.topic = newTopic;
+        // collection.topic = newTopic;
         collection.description = newDescription;
 
         const updatedCollection = await collection.save();

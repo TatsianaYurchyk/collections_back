@@ -7,6 +7,8 @@ import { assertIsDefined } from "../util/assertIsDefined";
 
 export const getAuthenticatedUser: RequestHandler = async (req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', 'true')
+    // res.setHeader('Access-Control-Allow-Origin', 'https://collections-mern.onrender.com')
+    //res.setHeader('Access-Control-Allow-Origin', ['http://localhost:3000', 'https://collections-mern.onrender.com'])
     try {
         const user = await UserModel.findById(req.session.userId).select("+email").exec();
         res.status(200).json(user);
