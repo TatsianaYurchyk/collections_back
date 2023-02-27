@@ -8,7 +8,7 @@ const collectionSchema = new Schema({
     description: { type: String, required: true },
     fields:{type: Array},
     // fields: [{ type: Schema.Types.ObjectId, ref: 'Field' }],
-    // items: [{ type: Schema.Types.ObjectId, ref: 'Item' }]
+    items: [{ type: Schema.Types.ObjectId, ref: 'Item' }]
 }, { timestamps: true });
 
 type Collection = InferSchemaType<typeof collectionSchema>;
