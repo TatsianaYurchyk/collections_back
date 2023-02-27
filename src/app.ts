@@ -10,6 +10,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import env from "./util/validateEnv";
 import cors from 'cors';
+import { requiresAuth } from "./middleware/auth";
 
 const app = express();
 
@@ -41,8 +42,8 @@ app.use(session({
 
 app.use("/api/users", usersRoutes)
 app.use("/api/topics", topicsRoutes)
-app.use("/api/collections", collectionsRoutes)
-app.use("/api/collections/items", itemsRoutes)
+app.use("/api/collections", requiresAuth, collectionsRoutes)
+app.use("/api/collections/items",requiresAuth, itemsRoutes)
 
 app.use((req, res, next)=>{
     next(createHttpError(404,"Endpoint not found"));
