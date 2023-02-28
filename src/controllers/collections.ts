@@ -43,7 +43,7 @@ export const getCollection: RequestHandler = async (req, res, next) => {
     const authenticatedUserId = req.session.userId;
 
     try {
-        assertIsDefined(authenticatedUserId);
+        // assertIsDefined(authenticatedUserId);
 
         if (!mongoose.isValidObjectId(collectionId)) {
             throw createHttpError(400, "Invalid collection id");
@@ -131,7 +131,7 @@ export const updateCollection: RequestHandler<UpdateCollectionParams, unknown, U
     const authenticatedUserId = req.session.userId;
 
     try {
-        // assertIsDefined(authenticatedUserId);
+        assertIsDefined(authenticatedUserId);
 
         if (!mongoose.isValidObjectId(collectionId)) {
             throw createHttpError(400, "Invalid collection id");
@@ -175,7 +175,7 @@ export const deleteCollection: RequestHandler = async (req, res, next) => {
     const authenticatedUserId = req.session.userId;
 
     try {
-        // assertIsDefined(authenticatedUserId);
+        assertIsDefined(authenticatedUserId);
 
         if (!mongoose.isValidObjectId(collectionId)) {
             throw createHttpError(400, "Invalid collection id");

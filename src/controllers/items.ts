@@ -13,7 +13,7 @@ export const getItems: RequestHandler = async (req, res, next) => {
     const collectionId = req.params.collectionId;
 
     try {
-        assertIsDefined(authenticatedUserId);
+        // assertIsDefined(authenticatedUserId);
 
         const items = await ItemModel.find({ collectionId: collectionId }).exec();
         res.status(200).json(items);
@@ -168,7 +168,7 @@ export const deleteItem: RequestHandler = async (req, res, next) => {
     const authenticatedUserId = req.session.userId;
 
     try {
-        // assertIsDefined(authenticatedUserId);
+        assertIsDefined(authenticatedUserId);
 
         if (!mongoose.isValidObjectId(itemId)) {
             throw createHttpError(400, "Invalid item id");
