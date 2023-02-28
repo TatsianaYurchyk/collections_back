@@ -8,10 +8,10 @@ router.get("/:collectionId",requiresAuth, ItemsController.getItems);
 
 // router.get("/:collectionId", CollectionsController.getCollection);
 
-router.post("/create", ItemsController.createItem);
+router.post("/create",requiresAuth, ItemsController.createItem);
 
 // router.patch("/:collectionId", ItemsController.updateItem);
 
-// router.delete("/:collectionId", CollectionsController.deleteCollection);
+router.delete("/:itemId",  ItemsController.deleteItem);
 
 export default router;

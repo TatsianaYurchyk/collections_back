@@ -162,31 +162,32 @@ export const createItem: RequestHandler<unknown, unknown, CreateItemBody, unknow
 //     }
 // };
 
-// export const deleteCollection: RequestHandler = async (req, res, next) => {
-//     const collectionId = req.params.collectionId;
-//     const authenticatedUserId = req.session.userId;
+export const deleteItem: RequestHandler = async (req, res, next) => {
+    const collectionId = req.params.collectionId;
+    const itemId = req.params.itemId;
+    const authenticatedUserId = req.session.userId;
 
-//     try {
-//         // assertIsDefined(authenticatedUserId);
+    try {
+        // assertIsDefined(authenticatedUserId);
 
-//         if (!mongoose.isValidObjectId(collectionId)) {
-//             throw createHttpError(400, "Invalid collection id");
-//         }
+        if (!mongoose.isValidObjectId(itemId)) {
+            throw createHttpError(400, "Invalid item id");
+        }
 
-//         const collection = await CollectionModel.findById(collectionId).exec();
+        const item = await ItemModel.findById(itemId).exec();
 
-//         if (!collection) {
-//             throw createHttpError(404, "Collection not found");
-//         }
+        if (!item) {
+            throw createHttpError(404, "Item not found");
+        }
 
-//         // if (!collection.userId.equals(authenticatedUserId)) {
-//         //     throw createHttpError(401, "You cannot access this collection");
-//         // }
+        // if (!collection.userId.equals(authenticatedUserId)) {
+        //     throw createHttpError(401, "You cannot access this collection");
+        // }
 
-//         await collection.remove();
+        await item.remove();
 
-//         res.sendStatus(204);
-//     } catch (error) {
-//         next(error);
-//     }
-// };
+        res.sendStatus(204);
+    } catch (error) {
+        next(error);
+    }
+};
