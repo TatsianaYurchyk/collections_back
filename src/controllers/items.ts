@@ -168,7 +168,7 @@ export const deleteItem: RequestHandler = async (req, res, next) => {
     const authenticatedUserId = req.session.userId;
 
     try {
-        assertIsDefined(authenticatedUserId);
+        // assertIsDefined(authenticatedUserId);
 
         if (!mongoose.isValidObjectId(itemId)) {
             throw createHttpError(400, "Invalid item id");

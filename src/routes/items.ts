@@ -12,6 +12,6 @@ router.post("/create",requiresAuth, ItemsController.createItem);
 
 // router.patch("/:collectionId", ItemsController.updateItem);
 
-router.delete("/:itemId", requiresAuth, ItemsController.deleteItem);
+router.delete("/:itemId",  ItemsController.deleteItem);
 
 export default router;

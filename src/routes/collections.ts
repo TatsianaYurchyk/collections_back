@@ -5,7 +5,7 @@ import { requiresAuth } from "../middleware/auth";
 const router = express.Router();
 
 //router.get("/", requiresAuth, CollectionsController.getCollections);
-router.get("/", CollectionsController.getCollections);
+router.get("/", requiresAuth, CollectionsController.getCollections);
 
 router.get("/all", CollectionsController.getCollectionsHomePage);
 
@@ -15,6 +15,6 @@ router.post("/create", requiresAuth, CollectionsController.createCollection);
 
 router.patch("/:collectionId", CollectionsController.updateCollection);
 
-router.delete("/:collectionId", requiresAuth, CollectionsController.deleteCollection);
+router.delete("/:collectionId", CollectionsController.deleteCollection);
 
 export default router;
