@@ -9,7 +9,7 @@ export const getItems: RequestHandler = async (req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', 'true')
     res.setHeader('Access-Control-Expose-Headers', 'Set-Cookie')
     // res.setHeader('Access-control-expose-headers: Set-Cookie','true')
-    const authenticatedUserId = req.session.userId;
+    // const authenticatedUserId = req.session.userId;
     const collectionId = req.params.collectionId;
 
     try {
@@ -66,10 +66,10 @@ export const createItem: RequestHandler<unknown, unknown, CreateItemBody, unknow
     const properties = req.body.properties;
  
     // const fields = req.body.fields;
-    const authenticatedUserId = req.session.userId;
+    // const authenticatedUserId = req.session.userId;
 
     try {
-        assertIsDefined(authenticatedUserId);
+        // assertIsDefined(authenticatedUserId);
 
         if (!name) {
             throw createHttpError(400, "Item must have a name");

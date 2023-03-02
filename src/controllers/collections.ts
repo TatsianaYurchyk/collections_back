@@ -4,11 +4,27 @@ import mongoose from "mongoose";
 import CollectionModel from "../models/collection";
 import { assertIsDefined } from "../util/assertIsDefined";
 
+// export const getCollections: RequestHandler = async (req, res, next) => {
+//     res.setHeader('Access-Control-Allow-Credentials', 'true')
+//     res.setHeader('Access-Control-Expose-Headers', 'Set-Cookie')
+//     // res.setHeader('Access-control-expose-headers: Set-Cookie','true')
+//     const authenticatedUserId = req.session.userId;
+
+//     try {
+//         // assertIsDefined(authenticatedUserId);
+
+//         const collections = await CollectionModel.find({ userId: authenticatedUserId }).exec();
+//         res.status(200).json(collections);
+//     } catch (error) {
+//         next(error);
+//     }
+// };
 export const getCollections: RequestHandler = async (req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', 'true')
     res.setHeader('Access-Control-Expose-Headers', 'Set-Cookie')
     // res.setHeader('Access-control-expose-headers: Set-Cookie','true')
-    const authenticatedUserId = req.session.userId;
+    // const authenticatedUserId = req.session.userId;
+    const authenticatedUserId  = req.params.userId;
 
     try {
         // assertIsDefined(authenticatedUserId);
@@ -40,7 +56,7 @@ export const getCollection: RequestHandler = async (req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', 'true')
     
     const collectionId = req.params.collectionId;
-    const authenticatedUserId = req.session.userId;
+    // const authenticatedUserId = req.session.userId;
 
     try {
         // assertIsDefined(authenticatedUserId);
@@ -72,6 +88,7 @@ interface CreateCollectionBody {
     topic: string,
     description: string,
     fields: Array<string>,
+    userId:String,
 }
 
 export const createCollection: RequestHandler<unknown, unknown, CreateCollectionBody, unknown> = async (req, res, next) => {
@@ -79,10 +96,11 @@ export const createCollection: RequestHandler<unknown, unknown, CreateCollection
     const topic = req.body.topic;
     const description = req.body.description;
     const fields = req.body.fields;
-    const authenticatedUserId = req.session.userId;
+    const authenticatedUserId  = req.body.userId;
+    // const authenticatedUserId = req.session.userId;
 
     try {
-        assertIsDefined(authenticatedUserId);
+        // assertIsDefined(authenticatedUserId);
 
         if (!name) {
             throw createHttpError(400, "Collection must have a name");
@@ -128,7 +146,7 @@ export const updateCollection: RequestHandler<UpdateCollectionParams, unknown, U
     const newTopic = req.body.topic;
     const newDescription = req.body.description;
     const newFields = req.body.fields;
-    const authenticatedUserId = req.session.userId;
+    // const authenticatedUserId = req.session.userId;
 
     try {
         // assertIsDefined(authenticatedUserId);
@@ -172,7 +190,7 @@ export const updateCollection: RequestHandler<UpdateCollectionParams, unknown, U
 
 export const deleteCollection: RequestHandler = async (req, res, next) => {
     const collectionId = req.params.collectionId;
-    const authenticatedUserId = req.session.userId;
+    // const authenticatedUserId = req.session.userId;
 
     try {
         // assertIsDefined(authenticatedUserId);

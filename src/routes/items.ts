@@ -8,7 +8,7 @@ router.get("/:collectionId", ItemsController.getItems);
 
 // router.get("/:collectionId", CollectionsController.getCollection);
 
-router.post("/create",requiresAuth, ItemsController.createItem);
+router.post("/create", ItemsController.createItem);
 
 // router.patch("/:collectionId", ItemsController.updateItem);
 
