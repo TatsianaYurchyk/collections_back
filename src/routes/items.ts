@@ -10,7 +10,7 @@ router.get("/:collectionId", ItemsController.getItems);
 
 router.post("/create", ItemsController.createItem);
 
-// router.patch("/:collectionId", ItemsController.updateItem);
+router.patch("/:itemId", ItemsController.updateItem);
 
 router.delete("/:itemId",  ItemsController.deleteItem);
 

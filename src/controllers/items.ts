@@ -102,65 +102,54 @@ export const createItem: RequestHandler<unknown, unknown, CreateItemBody, unknow
     }
 };
 
-// interface UpdateCollectionParams {
-//     collectionId: string,
-// }
+interface UpdateItemParams {
+    itemId: string,
+}
 
-// interface UpdateCollectionBody {
-//     name?: string,
-//     // topic?: mongoose.Types.ObjectId,
-//     topic?: string,
-//     description?: string,
-//     fields: Array<string>,
-// }
+interface UpdateItemBody {
+    name: string,
+    collectionId: string,
+    properties: Object,
+}
 
-// export const updateCollection: RequestHandler<UpdateCollectionParams, unknown, UpdateCollectionBody, unknown> = async (req, res, next) => {
-//     const collectionId = req.params.collectionId;
-//     const newName = req.body.name;
-//     const newTopic = req.body.topic;
-//     const newDescription = req.body.description;
-//     const newFields = req.body.fields;
-//     const authenticatedUserId = req.session.userId;
+export const updateItem: RequestHandler<UpdateItemParams, unknown, UpdateItemBody, unknown> = async (req, res, next) => {
+    const itemId = req.params.itemId;
+    const newName = req.body.name;
+    const newProperties = req.body.properties;
+    // const authenticatedUserId = req.session.userId;
 
-//     try {
-//         // assertIsDefined(authenticatedUserId);
+    try {
+        // assertIsDefined(authenticatedUserId);
 
-//         if (!mongoose.isValidObjectId(collectionId)) {
-//             throw createHttpError(400, "Invalid collection id");
-//         }
+        if (!mongoose.isValidObjectId(itemId)) {
+            throw createHttpError(400, "Invalid item id");
+        }
 
-//         if (!newName) {
-//             throw createHttpError(400, "Collection must have a name");
-//         }
-//         if (!newDescription) {
-//             throw createHttpError(400, "Collection must have a description");
-//         }
-//         if (!newTopic) {
-//             throw createHttpError(400, "Collection must have a topic");
-//         }
+        if (!newName) {
+            throw createHttpError(400, "Item must have a name");
+        }
 
-//         const collection = await CollectionModel.findById(collectionId).exec();
+        const item = await ItemModel.findById(itemId).exec();
 
-//         if (!collection) {
-//             throw createHttpError(404, "Collection not found");
-//         }
+        if (!item) {
+            throw createHttpError(404, "item not found");
+        }
 
-//         // if (!collection.userId.equals(authenticatedUserId)) {
-//         //     throw createHttpError(401, "You cannot access this collection");
-//         // }
+        // if (!collection.userId.equals(authenticatedUserId)) {
+        //     throw createHttpError(401, "You cannot access this collection");
+        // }
 
-//         collection.name = newName;
-//         collection.topic = newTopic;
-//         collection.description = newDescription;
-//         collection.fields = newFields;
+        item.name = newName;
+        item.properties = newProperties;
+   
 
-//         const updatedCollection = await collection.save();
+        const updatedItem = await item.save();
 
-//         res.status(200).json(updatedCollection);
-//     } catch (error) {
-//         next(error);
-//     }
-// };
+        res.status(200).json(updatedItem);
+    } catch (error) {
+        next(error);
+    }
+};
 
 export const deleteItem: RequestHandler = async (req, res, next) => {
     const collectionId = req.params.collectionId;
