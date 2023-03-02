@@ -6,8 +6,6 @@ const router = express.Router();
 
 router.get("/:collectionId", ItemsController.getItems);
 
-// router.get("/:collectionId", CollectionsController.getCollection);
-
 router.post("/create", ItemsController.createItem);
 
 router.patch("/:itemId", ItemsController.updateItem);

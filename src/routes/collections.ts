@@ -5,7 +5,6 @@ import { requiresAuth } from "../middleware/auth";
 const router = express.Router();
 
 //router.get("/", requiresAuth, CollectionsController.getCollections);
-// router.get("/", CollectionsController.getCollections);
 router.get("/:userId", CollectionsController.getCollections);
  
 router.get("/all/alles", CollectionsController.getCollectionsHomePage);
